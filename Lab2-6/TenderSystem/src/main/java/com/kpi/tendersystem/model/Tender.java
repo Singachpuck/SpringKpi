@@ -1,58 +1,39 @@
 package com.kpi.tendersystem.model;
 
+import com.kpi.tendersystem.model.auth.User;
+import com.kpi.tendersystem.model.form.FormTender;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class Tender {
-    private int id;
-    private String title;
-    private String type;
-    private double price;
-    private User owner;
-    private boolean isActive;
-    private Date endDate;
-    private Date createDate;
+public class Tender extends FormTender implements Serializable {
+    private Integer id;
 
-    public int getId() {
+    private User owner;
+
+    private Date startDate;
+
+    public Integer getId() {
         return id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public User getOwner() {
         return owner;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public void setOwner(User owner) {
+        this.owner = owner;
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 }

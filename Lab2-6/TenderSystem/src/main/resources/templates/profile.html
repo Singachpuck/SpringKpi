@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${user.username} + ' profile'"></title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Username</td>
+            <td th:text="${user.username}"/>
+        </tr>
+    </table>
+
+    <div>
+        <h2>Your offers</h2>
+        <div th:each="offer: ${offers}">
+            <h3 th:text="'Offer for tender: ' + ${offer.tender.title}"/>
+            <p th:text="${offer.description}" />
+        </div>
+    </div>
+</body>
+</html>

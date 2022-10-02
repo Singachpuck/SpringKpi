@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tenders</title>
+</head>
+<body>
+    <h1>Active tenders</h1>
+    <div th:each="tender: ${tenders}">
+        <div th:text="'Title: ' + ${tender.title}"/>
+        <div th:text="'Price: ' + ${tender.price}"/>
+        <div th:text="'Start date: ' + ${#dates.format(tender.startDate, 'dd/MM/yyyy HH:mm:ss')}"/>
+        <div th:text="'End date: ' + ${#dates.format(tender.endDate, 'dd/MM/yyyy HH:mm:ss')}"/>
+    </div>
+</body>
+</html>

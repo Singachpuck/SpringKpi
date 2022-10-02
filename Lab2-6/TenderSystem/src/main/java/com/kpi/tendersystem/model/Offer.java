@@ -1,23 +1,38 @@
 package com.kpi.tendersystem.model;
 
-public class Offer {
-    private int id;
-    private Tender tender;
-    private double price;
+import com.kpi.tendersystem.model.auth.User;
+import com.kpi.tendersystem.model.form.FormOffer;
 
-    public int getId() {
+import java.io.Serializable;
+
+public class Offer extends FormOffer implements Serializable {
+    private Integer id;
+
+    private Tender tender;
+
+    private User user;
+
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Tender getTender() {
         return tender;
     }
 
-    public double getPrice() {
-        return price;
+    public void setTender(Tender tender) {
+        this.tender = tender;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

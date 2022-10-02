@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Offers</title>
+</head>
+<body>
+    <h1 th:text="'Offers for tender ' + ${tender.title}"></h1>
+    <div th:each="offer: ${offers}">
+        <p th:text="'User: ' + ${offer.user.username}" />
+        <p th:text="'Description: ' + ${offer.description}" />
+    </div>
+</body>
+</html>
