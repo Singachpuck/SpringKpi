@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tender</title>
+</head>
+<body>
+<h1>Tender</h1>
+<table>
+    <tr>
+        <th>Setting</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>Id</td>
+        <td th:text="${tender.id}"/>
+    </tr>
+    <tr>
+        <td>Title</td>
+        <td th:text="${tender.title}"/>
+    </tr>
+    <tr>
+        <td>Category</td>
+        <td th:text="${tender.category}"/>
+    </tr>
+    <tr>
+        <td>Price</td>
+        <td th:text="${tender.price}"/>
+    </tr>
+    <tr>
+        <td>Status</td>
+        <td th:text="${tender.active} ? 'Active' : 'Inactive'"/>
+    </tr>
+    <tr>
+        <td>Start Date</td>
+        <td th:text="${#dates.format(tender.startDate, 'dd/MM/yyyy HH:mm:ss')}"/>
+    </tr>
+    <tr>
+        <td>End Date</td>
+        <td th:text="${#dates.format(tender.endDate, 'dd/MM/yyyy HH:mm:ss')}"/>
+    </tr>
+</table>
+<form th:if="${username != tender.owner.username && oldOffer == null}" action="#"
+      th:action="@{${#httpServletRequest.requestURL} + '/offers'}" th:object="${formOffer}" method="post">
+    <textarea th:field="*{description}" placeholder="Enter description"></textarea>
+    <input type="submit">
+</form>
+<section th:if="${username == tender.owner.username}">
+    <form action="#" th:action="@{''}" th:object="${tender}" th:method="put">
+        <input type="hidden" th:value="${!tender.active}" name="active">
+        <input type="hidden" th:field="${tender.title}">
+        <input type="hidden" th:field="${tender.category}">
+        <input type="hidden" th:field="${tender.endDate}">
+        <input type="hidden" th:field="${tender.price}">
+        <input type="submit" th:value="'Set ' + (${tender.active} ? 'Inactive' : 'Active')">
+    </form>
+    <form action="#" th:action="@{''}" th:method="delete">
+        <input type="submit" value="Delete">
+    </form>
+    <div>
+        <button><a th:href="@{${#httpServletRequest.requestURI} + '/offers'}">See Offers</a></button>
+    </div>
+</section>
+</body>
+</html>

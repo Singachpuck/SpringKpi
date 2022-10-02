@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Tender</title>
+</head>
+<body>
+    <form action="#" th:action="@{''}" th:object="${newTender}" method="post">
+        <fieldset>
+            <legend>New Tender</legend>
+            <ul>
+                <li><input type="text" th:field="*{title}" placeholder="title"></li>
+                <li><label for="tender-category">Category: <select id="tender-category" th:each="category: ${T(com.kpi.tendersystem.model.form.Category).values()}"><option th:value="${category}" th:text="${category}"/></select></label></li>
+                <li><input type="number" step="0.01" th:field="*{price}" placeholder="price"></li>
+                <li><label for="tender-active">Is Active<input id="tender-active" type="checkbox" th:field="*{active}" placeholder="price"></label></li>
+                <li><label for="tender-endDate">End date: <input id="tender-endDate" type="datetime-local" th:field="*{endDate}"></label></li>
+                <li><input type="submit" value="Create"></li>
+            </ul>
+        </fieldset>
+  </form>
+</body>
+</html>
