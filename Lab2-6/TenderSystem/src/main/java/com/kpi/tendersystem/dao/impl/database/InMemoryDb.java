@@ -4,7 +4,6 @@ import com.kpi.tendersystem.model.Offer;
 import com.kpi.tendersystem.model.Tender;
 import com.kpi.tendersystem.model.auth.Authorities;
 import com.kpi.tendersystem.model.auth.User;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.*;

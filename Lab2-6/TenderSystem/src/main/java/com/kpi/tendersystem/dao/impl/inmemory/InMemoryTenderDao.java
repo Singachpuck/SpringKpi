@@ -2,11 +2,13 @@ package com.kpi.tendersystem.dao.impl.inmemory;
 
 import com.kpi.tendersystem.dao.TenderDao;
 import com.kpi.tendersystem.dao.impl.database.InMemoryDb;
-import com.kpi.tendersystem.model.Offer;
 import com.kpi.tendersystem.model.Tender;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.NoSuchElementException;
 
 @Repository
 public class InMemoryTenderDao implements TenderDao {

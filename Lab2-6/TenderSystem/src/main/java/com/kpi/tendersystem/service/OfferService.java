@@ -1,8 +1,6 @@
 package com.kpi.tendersystem.service;
 
 import com.kpi.tendersystem.dao.OfferDao;
-import com.kpi.tendersystem.dao.TenderDao;
-import com.kpi.tendersystem.dao.UserDao;
 import com.kpi.tendersystem.model.Offer;
 import com.kpi.tendersystem.model.form.FormOffer;
 import org.springframework.beans.factory.annotation.Autowired;
