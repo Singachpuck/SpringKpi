@@ -5,12 +5,21 @@
     <title>Tenders</title>
 </head>
 <body>
+    <form>
+        <input type="search" name="search" placeholder="Search..." required>
+        <button>Search</button>
+    </form>
     <h1>Active tenders</h1>
-    <div th:each="tender: ${tenders}">
-        <div th:text="'Title: ' + ${tender.title}"/>
-        <div th:text="'Price: ' + ${tender.price}"/>
-        <div th:text="'Start date: ' + ${#dates.format(tender.startDate, 'dd/MM/yyyy HH:mm:ss')}"/>
-        <div th:text="'End date: ' + ${#dates.format(tender.endDate, 'dd/MM/yyyy HH:mm:ss')}"/>
+    <div  th:if="!${#lists.isEmpty(tenders)}">
+        <div th:each="tender: ${tenders}">
+            <div th:text="'Title: ' + ${tender.title}"/>
+            <div th:text="'Price: ' + ${tender.price}"/>
+            <div th:text="'Start date: ' + ${#dates.format(tender.startDate, 'dd/MM/yyyy HH:mm:ss')}"/>
+            <div th:text="'End date: ' + ${#dates.format(tender.endDate, 'dd/MM/yyyy HH:mm:ss')}"/>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(tenders)}">
+        Tenders not found
     </div>
 </body>
 </html>

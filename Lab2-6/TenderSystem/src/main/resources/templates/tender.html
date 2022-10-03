@@ -39,9 +39,13 @@
         <td>End Date</td>
         <td th:text="${#dates.format(tender.endDate, 'dd/MM/yyyy HH:mm:ss')}"/>
     </tr>
+    <tr>
+        <td>Link</td>
+        <td><input type="url" th:value="${#httpServletRequest.requestURL}"> </td>
+    </tr>
 </table>
 <form th:if="${username != tender.owner.username && oldOffer == null}" action="#"
-      th:action="@{${#httpServletRequest.requestURL} + '/offers'}" th:object="${formOffer}" method="post">
+      th:action="@{${#httpServletRequest.requestURI} + '/offers'}" th:object="${formOffer}" method="post">
     <textarea th:field="*{description}" placeholder="Enter description"></textarea>
     <input type="submit">
 </form>
