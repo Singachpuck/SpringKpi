@@ -12,11 +12,15 @@ import java.security.Principal;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final OfferService offerService;
 
     @Autowired
-    private OfferService offerService;
+    public UserController(UserService userService, OfferService offerService) {
+        this.userService = userService;
+        this.offerService = offerService;
+    }
 
     @GetMapping("/profile")
     public String index(Principal principal, Model model) {

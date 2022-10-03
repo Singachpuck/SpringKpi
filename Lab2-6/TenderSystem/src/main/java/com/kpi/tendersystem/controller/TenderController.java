@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.Optional;
 
 @Controller
 @RequestMapping(TenderController.BASE)
@@ -22,16 +23,20 @@ public class TenderController {
 
     public static final String ONE = "/{tenderId}";
 
-    @Autowired
     private TenderService tenderService;
 
     @Autowired
     private OfferService offerService;
 
+    @Autowired
+    public void setTenderService(TenderService tenderService) {
+        this.tenderService = tenderService;
+    }
+
     @GetMapping
     public String showAll(@RequestParam(required = false) String search, final Model model) {
         // Page with active tenders
-        model.addAttribute("tenders", tenderService.getAllActive());
+        model.addAttribute("tenders", tenderService.getAllActive(search));
         return "tenders";
     }
 

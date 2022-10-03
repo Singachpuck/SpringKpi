@@ -4,6 +4,7 @@ import com.kpi.tendersystem.dao.TenderDao;
 import com.kpi.tendersystem.model.Tender;
 import com.kpi.tendersystem.model.auth.User;
 import com.kpi.tendersystem.model.form.FormTender;
+import com.kpi.tendersystem.service.search.TenderSearch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -21,14 +22,19 @@ public class TenderService {
     private UserService userService;
 
     @Autowired
+    private TenderSearch tenderSearch;
+
+    @Autowired
     private TenderDao tenderDao;
 
-    public Collection<Tender> getAllActive() {
-        return tenderDao
+    public Collection<Tender> getAllActive(String searchText) {
+        Collection<Tender> activeTenders = tenderDao
                 .getAll()
                 .stream()
                 .filter(Tender::isActive)
                 .collect(Collectors.toList());
+
+        return (searchText == null) ? activeTenders : tenderSearch.search(activeTenders, searchText);
     }
 
     public Tender getTender(final int id) throws ResponseStatusException {
