@@ -26,7 +26,7 @@ public class KeywordSearch implements TenderSearch {
                         break;
                     }
                 }
-                return isValid;
+                return !(result.contains(tender)) && isValid;
             }).toList());
         }
 
