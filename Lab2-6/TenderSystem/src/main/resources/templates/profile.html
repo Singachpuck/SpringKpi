@@ -2,22 +2,44 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${user.username} + ' profile'"></title>
+    <th:block th:replace="fragments/fragments.html :: bootstrap-css" />
+    <link rel="stylesheet" href="/style/profile.css">
+    <title th:text="${user.username}"></title>
 </head>
 <body>
-    <table>
-        <tr>
-            <td>Username</td>
-            <td th:text="${user.username}"/>
-        </tr>
-    </table>
-
-    <div>
-        <h2>Your offers</h2>
-        <div th:each="offer: ${offers}">
-            <h3 th:text="'Offer for tender: ' + ${offer.tender.title}"/>
-            <p th:text="${offer.description}" />
-        </div>
-    </div>
+<main>
+    <th:block th:replace="fragments/fragments.html :: header" />
+    <section class="container">
+        <section>
+            <table>
+                <tr>
+                    <td>Username</td>
+                    <td th:text="${user.username}"/>
+                </tr>
+            </table>
+        </section>
+        <section>
+            <button type="button" th:class="'btn button-dark ' + ${(#lists.isEmpty(offers) ? 'disabled' : '')}" data-bs-toggle="collapse" data-bs-target="#offers-wrapper" aria-expanded="false" aria-controls="offers-wrapper">See Offers</button>
+            <div id="offers-wrapper" class="collapse">
+                <div class="offers-content" th:if="${!#lists.isEmpty(offers)}">
+                    <h2 class="main-header">Your offers</h2>
+                    <hr>
+                    <div class="offers">
+                        <div class="offer row" th:each="offer: ${offers}">
+                            <div class="card col-sm-12 col-md-4">
+                                <div class="card-body">
+                                    <h5 class="card-title" th:text="'Offer for tender: ' + ${offer.tender.title}"/>
+                                    <hr>
+                                    <p class="card-text" th:text="${offer.description}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+</main>
+<th:block th:replace="fragments/fragments.html :: bootstrap-js"/>
 </body>
 </html>

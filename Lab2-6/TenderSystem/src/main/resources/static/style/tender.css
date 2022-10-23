@@ -1,0 +1,18 @@
+@import "general.css";
+@import "header.css";
+
+.shared-link{
+    cursor: pointer;
+}
+
+.offer-description{
+    width: 100%;
+}
+
+.admin-panel > *{
+    margin-right: 1em;
+}
+
+.admin-panel > *:last-child{
+    margin-right: 0;
+}

@@ -1,0 +1,16 @@
+@import "general.css";
+
+.header{
+    color: var(--main-light);
+    background-color: var(--main-dark);
+    padding: 20px 0;
+}
+
+.header a{
+    color: inherit;
+    text-decoration: inherit;
+}
+
+.header a:hover{
+    color: var(--secondary);
+}
