@@ -2,21 +2,52 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <th:block th:replace="fragments/fragments.html :: bootstrap-css" />
+    <link rel="stylesheet" href="/style/createTender.css">
     <title>Create Tender</title>
 </head>
 <body>
-    <form action="#" th:action="@{''}" th:object="${newTender}" method="post">
-        <fieldset>
-            <legend>New Tender</legend>
-            <ul>
-                <li><input type="text" th:field="*{title}" placeholder="title"></li>
-                <li><label for="tender-category">Category: <select id="tender-category" th:each="category: ${T(com.kpi.tendersystem.model.form.Category).values()}"><option th:value="${category}" th:text="${category}"/></select></label></li>
-                <li><input type="number" step="0.01" th:field="*{price}" placeholder="price"></li>
-                <li><label for="tender-active">Is Active<input id="tender-active" type="checkbox" th:field="*{active}" placeholder="price"></label></li>
-                <li><label for="tender-endDate">End date: <input id="tender-endDate" type="datetime-local" th:field="*{endDate}"></label></li>
-                <li><input type="submit" value="Create"></li>
-            </ul>
-        </fieldset>
-  </form>
+<main>
+    <th:block th:replace="fragments/fragments.html :: header"/>
+    <section class="container">
+        <form action="#" th:action="@{''}" th:object="${newTender}" method="post">
+            <fieldset>
+                <legend>New Tender</legend>
+                <table>
+                    <tr>
+                        <td>Title</td>
+                        <td><input type="text" th:field="*{title}" placeholder="Title..."></td>
+                    </tr>
+                    <tr>
+                        <td>Category</td>
+                        <td>
+                            <select id="tender-category">
+                                <th:block th:each="category: ${T(com.kpi.tendersystem.model.form.Category).values()}">
+                                    <option th:value="${category}" th:text="${category}"/>
+                                </th:block>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Price</td>
+                        <td><input type="number" step="0.01" th:field="*{price}" placeholder="Price"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="tender-active">Is Active</label></td>
+                        <td><input id="tender-active" type="checkbox" th:field="*{active}" placeholder="price"></td>
+                    </tr>
+                    <tr>
+                        <td>End Date</td>
+                        <td><input id="tender-endDate" type="datetime-local" th:field="*{endDate}"></td>
+                    </tr>
+                    <tr>
+                        <td><button type="submit" class="btn button-dark">Create</button></td>
+                    </tr>
+                </table>
+            </fieldset>
+        </form>
+    </section>
+</main>
+<th:block th:replace="fragments/fragments.html :: bootstrap-js"/>
 </body>
 </html>

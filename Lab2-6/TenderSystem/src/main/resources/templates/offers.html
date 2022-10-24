@@ -2,13 +2,36 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <th:block th:replace="fragments/fragments.html :: bootstrap-css" />
+    <link rel="stylesheet" href="/style/offers.css">
     <title>Offers</title>
 </head>
 <body>
-    <h1 th:text="'Offers for tender ' + ${tender.title}"></h1>
-    <div th:each="offer: ${offers}">
-        <p th:text="'User: ' + ${offer.user.username}" />
-        <p th:text="'Description: ' + ${offer.description}" />
-    </div>
+<main>
+    <th:block th:replace="fragments/fragments.html :: header" />
+    <section class="container">
+        <h1 class="main-header" th:text="'Offers for tender: ' + ${tender.title}"></h1>
+        <hr>
+        <div class="offer-wrapper">
+            <div class="offer row" th:each="offer: ${offers}">
+                <div class="card col-sm-12 col-md-4">
+                    <div class="card-body">
+                        <table>
+                            <tr>
+                                <td>User</td>
+                                <td th:text="${offer.user.username}"></td>
+                            </tr>
+                            <tr>
+                                <td>Description</td>
+                                <td th:text="${offer.description}"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<th:block th:replace="fragments/fragments.html :: bootstrap-js"/>
 </body>
 </html>

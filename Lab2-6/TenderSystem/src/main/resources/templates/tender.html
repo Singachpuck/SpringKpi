@@ -2,68 +2,97 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Tender</title>
+    <th:block th:replace="fragments/fragments.html :: bootstrap-css" />
+    <link rel="stylesheet" href="/style/tender.css">
+    <title th:text="${'Tender ' + tender.title}"></title>
 </head>
 <body>
-<h1>Tender</h1>
-<table>
-    <tr>
-        <th>Setting</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td>Id</td>
-        <td th:text="${tender.id}"/>
-    </tr>
-    <tr>
-        <td>Title</td>
-        <td th:text="${tender.title}"/>
-    </tr>
-    <tr>
-        <td>Category</td>
-        <td th:text="${tender.category}"/>
-    </tr>
-    <tr>
-        <td>Price</td>
-        <td th:text="${tender.price}"/>
-    </tr>
-    <tr>
-        <td>Status</td>
-        <td th:text="${tender.active} ? 'Active' : 'Inactive'"/>
-    </tr>
-    <tr>
-        <td>Start Date</td>
-        <td th:text="${#dates.format(tender.startDate, 'dd/MM/yyyy HH:mm:ss')}"/>
-    </tr>
-    <tr>
-        <td>End Date</td>
-        <td th:text="${#dates.format(tender.endDate, 'dd/MM/yyyy HH:mm:ss')}"/>
-    </tr>
-    <tr>
-        <td>Link</td>
-        <td><input type="url" th:value="${#httpServletRequest.requestURL}"> </td>
-    </tr>
-</table>
-<form th:if="${username != tender.owner.username && oldOffer == null}" action="#"
-      th:action="@{${#httpServletRequest.requestURI} + '/offers'}" th:object="${formOffer}" method="post">
-    <textarea th:field="*{description}" placeholder="Enter description"></textarea>
-    <input type="submit">
-</form>
-<section th:if="${username == tender.owner.username}">
-    <form action="#" th:action="@{''}" th:object="${tender}" th:method="put">
-        <input type="hidden" th:value="${!tender.active}" name="active">
-        <input type="hidden" th:field="${tender.title}">
-        <input type="hidden" th:field="${tender.category}">
-        <input type="hidden" th:field="${tender.endDate}">
-        <input type="hidden" th:field="${tender.price}">
-        <input type="submit" th:value="'Set ' + (${tender.active} ? 'Inactive' : 'Active')">
-    </form>
-    <form action="#" th:action="@{''}" th:method="delete">
-        <input type="submit" value="Delete">
-    </form>
-    <div>
-        <button><a th:href="@{${#httpServletRequest.requestURI} + '/offers'}">See Offers</a></button>
-    </div>
-</section>
+<main>
+    <th:block th:replace="fragments/fragments.html :: header"/>
+    <section class="container">
+        <div class="header-wrapper d-flex align-items-center">
+            <h1 class="main-header">Tender</h1>
+            <div class="offer-button-wrapper ms-auto" th:if="${username != tender.owner.username && oldOffer == null}">
+                <button type="button" class="btn button-dark" data-bs-toggle="modal" data-bs-target="#create-offer-modal" >Offer</button>
+            </div>
+            <div id="create-offer-modal" class="modal fade" tabindex="-1" aria-labelledby="createOfferLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <form class="modal-content" action="#" th:action="@{${#httpServletRequest.requestURI} + '/offers'}" th:object="${formOffer}" method="post">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="createOfferLabel">Create Offer</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <textarea rows="5" class="offer-description" th:field="*{description}" placeholder="Enter description"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn button-dark">Confirm</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="ms-auto d-flex admin-panel" th:if="${username == tender.owner.username}">
+                <div>
+                    <a class="btn button-dark" th:href="@{${#httpServletRequest.requestURI} + '/offers'}">See Offers</a>
+                </div>
+                <form action="#" th:action="@{''}" th:object="${tender}" th:method="put">
+                    <input type="hidden" th:value="${!tender.active}" name="active">
+                    <input type="hidden" th:field="${tender.title}">
+                    <input type="hidden" th:field="${tender.category}">
+                    <input type="hidden" th:field="${tender.endDate}">
+                    <input type="hidden" th:field="${tender.price}">
+                    <input class="btn button-dark" type="submit" th:value="'Set ' + (${tender.active} ? 'Inactive' : 'Active')">
+                </form>
+                <form action="#" th:action="@{''}" th:method="delete">
+                    <input class="btn button-dark" type="submit" value="Delete">
+                </form>
+            </div>
+        </div>
+        <hr>
+        <table>
+            <tr>
+                <th>Property</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Id</td>
+                <td th:text="${tender.id}"/>
+            </tr>
+            <tr>
+                <td>Title</td>
+                <td th:text="${tender.title}"/>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td th:text="${tender.category}"/>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td th:text="${tender.price}"/>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td th:text="${tender.active} ? 'Active' : 'Inactive'"/>
+            </tr>
+            <tr>
+                <td>Start Date</td>
+                <td th:text="${#dates.format(tender.startDate, 'dd/MM/yyyy HH:mm:ss')}"/>
+            </tr>
+            <tr>
+                <td>End Date</td>
+                <td th:text="${#dates.format(tender.endDate, 'dd/MM/yyyy HH:mm:ss')}"/>
+            </tr>
+            <tr>
+                <td>Shared link</td>
+                <td><code class="shared-link" title="Click to copy" th:text="${#httpServletRequest.requestURL}" /></td>
+            </tr>
+        </table>
+        <section >
+        </section>
+    </section>
+</main>
+<th:block th:replace="fragments/fragments.html :: bootstrap-js"/>
+<script src="/script/copy.js"></script>
 </body>
 </html>

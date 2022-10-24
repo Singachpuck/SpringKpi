@@ -55,6 +55,15 @@ public class InMemoryDb {
         tender1.setOwner(linda);
 
         tenders.add(tender1);
+
+        //Offers
+        final Offer offer1 = new Offer();
+        offer1.setId(1);
+        offer1.setTender(tender1);
+        offer1.setUser(adam);
+        offer1.setDescription("Blah blah");
+
+        offers.add(offer1);
     }
 
     public static Collection<Tender> loadTenders() {

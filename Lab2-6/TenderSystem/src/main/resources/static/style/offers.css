@@ -1,0 +1,10 @@
+@import "general.css";
+@import "header.css";
+
+.offer{
+
+}
+
+.offer td:first-of-type{
+    font-weight: bold;
+}
