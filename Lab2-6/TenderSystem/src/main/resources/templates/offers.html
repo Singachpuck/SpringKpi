@@ -7,8 +7,8 @@
     <title>Offers</title>
 </head>
 <body>
+<th:block th:replace="fragments/fragments.html :: header"/>
 <main>
-    <th:block th:replace="fragments/fragments.html :: header" />
     <section class="container">
         <h1 class="main-header" th:text="'Offers for tender: ' + ${tender.title}"></h1>
         <hr>
@@ -32,6 +32,7 @@
         </div>
     </section>
 </main>
+<th:block th:replace="fragments/fragments.html :: footer"></th:block>
 <th:block th:replace="fragments/fragments.html :: bootstrap-js"/>
 </body>
 </html>
