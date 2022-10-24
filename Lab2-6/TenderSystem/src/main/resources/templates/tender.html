@@ -7,8 +7,8 @@
     <title th:text="${'Tender ' + tender.title}"></title>
 </head>
 <body>
+<th:block th:replace="fragments/fragments.html :: header"/>
 <main>
-    <th:block th:replace="fragments/fragments.html :: header"/>
     <section class="container">
         <div class="header-wrapper d-flex align-items-center">
             <h1 class="main-header">Tender</h1>
@@ -23,7 +23,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <textarea rows="5" class="offer-description" th:field="*{description}" placeholder="Enter description"></textarea>
+                            <textarea rows="5" class="offer-description" th:field="*{description}" placeholder="Enter description" minlength="32" maxlength="4096" required></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
@@ -92,6 +92,7 @@
         </section>
     </section>
 </main>
+<th:block th:replace="fragments/fragments.html :: footer"></th:block>
 <th:block th:replace="fragments/fragments.html :: bootstrap-js"/>
 <script src="/script/copy.js"></script>
 </body>

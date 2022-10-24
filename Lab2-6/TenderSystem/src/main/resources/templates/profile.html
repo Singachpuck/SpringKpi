@@ -7,8 +7,8 @@
     <title th:text="${user.username}"></title>
 </head>
 <body>
+<th:block th:replace="fragments/fragments.html :: header"/>
 <main>
-    <th:block th:replace="fragments/fragments.html :: header" />
     <section class="container">
         <section>
             <table>
@@ -20,6 +20,7 @@
         </section>
         <section>
             <button type="button" th:class="'btn button-dark ' + ${(#lists.isEmpty(offers) ? 'disabled' : '')}" data-bs-toggle="collapse" data-bs-target="#offers-wrapper" aria-expanded="false" aria-controls="offers-wrapper">See Offers</button>
+            <a href="/logout" class="btn button-dark">Logout</a>
             <div id="offers-wrapper" class="collapse">
                 <div class="offers-content" th:if="${!#lists.isEmpty(offers)}">
                     <h2 class="main-header">Your offers</h2>
@@ -40,6 +41,7 @@
         </section>
     </section>
 </main>
+<th:block th:replace="fragments/fragments.html :: footer"></th:block>
 <th:block th:replace="fragments/fragments.html :: bootstrap-js"/>
 </body>
 </html>

@@ -7,21 +7,21 @@
     <title>Tender List</title>
 </head>
 <body>
+<th:block th:replace="fragments/fragments.html :: header(includeSearch=true)"></th:block>
 <main>
-    <th:block th:replace="fragments/fragments.html :: header(includeSearch=true)"></th:block>
     <section class="container" th:switch="${#lists.isEmpty(tenders)}">
         <h1 class="main-header">Active tenders</h1>
         <hr>
         <div class="tender-wrapper" th:case="false">
             <div class="card tender" th:each="tender: ${tenders}">
-                <div class="card-body">
+                <div class="card-body text-center">
                     <h5 class="card-title" th:text="${tender.title}"/>
                     <ul class="card-text">
                         <li th:text="'Price: ' + ${tender.price}"></li>
                         <li th:text="'Start date: ' + ${#dates.format(tender.startDate, 'dd/MM/yyyy HH:mm:ss')}"></li>
                         <li th:text="'End date: ' + ${#dates.format(tender.endDate, 'dd/MM/yyyy HH:mm:ss')}"></li>
                     </ul>
-                    <a th:id="${'tender' + tender.id}" class="card-link" th:href="${#httpServletRequest.requestURI + '/' + tender.id}">See</a>
+                    <a th:id="${'tender' + tender.id}" class="btn btn-outline-primary px-4 mt-3" th:href="${#httpServletRequest.requestURI + '/' + tender.id}">See</a>
                 </div>
             </div>
         </div>
@@ -30,6 +30,7 @@
         </div>
     </section>
 </main>
+<th:block th:replace="fragments/fragments.html :: footer"></th:block>
 <th:block th:replace="fragments/fragments.html :: bootstrap-js"/>
 </body>
 </html>
