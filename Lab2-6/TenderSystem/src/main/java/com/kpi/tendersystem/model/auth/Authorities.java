@@ -9,7 +9,7 @@ public enum Authorities {
     private final GrantedAuthority grantedAuthority;
 
     Authorities(final String grantedAuthorityName) {
-        this.grantedAuthority = new SimpleGrantedAuthority("ROLE_" + grantedAuthorityName);
+        this.grantedAuthority = new SimpleGrantedAuthority(grantedAuthorityName);
     }
 
     public GrantedAuthority getGrantedAuthority() {

@@ -6,20 +6,15 @@ import com.kpi.tendersystem.model.auth.User;
 import com.kpi.tendersystem.model.form.FormTender;
 import com.kpi.tendersystem.service.search.TenderSearch;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class TenderService {
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private TenderSearch tenderSearch;
@@ -27,8 +22,20 @@ public class TenderService {
     @Autowired
     private TenderDao tenderDao;
 
+    /**
+     *
+     * @param searchText filtration query (use ',' to split tokens for one filter group, use ';' to split filter groups)
+     * @param offset pagination offset (default 0)
+     * @param limit pagination limit (default 14)
+     * @return Return collection of tenders with pagination and filtration
+     */
+    public Collection<Tender> getAll(String searchText, int offset, int limit) {
+        final Collection<Tender> activeTenders = tenderDao.getAll(offset, limit);
+        return (searchText == null) ? activeTenders : tenderSearch.search(activeTenders, searchText);
+    }
+
     public Collection<Tender> getAllActive(String searchText) {
-        Collection<Tender> activeTenders = tenderDao
+        final Collection<Tender> activeTenders = tenderDao
                 .getAll()
                 .stream()
                 .filter(Tender::isActive)
@@ -37,29 +44,25 @@ public class TenderService {
         return (searchText == null) ? activeTenders : tenderSearch.search(activeTenders, searchText);
     }
 
-    public Tender getTender(final int id) throws ResponseStatusException {
-        try {
-            return tenderDao.get(id);
-        } catch (NoSuchElementException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tender with id: " + id + "does not exist");
-        }
+    public Optional<Tender> getTenderById(final int id) {
+        return tenderDao.getById(id);
     }
 
-    public void addTender(final String username, final FormTender formTender) {
-        final User owner = userService.getByUsername(username);
+    public Tender addTender(final User user, final FormTender formTender) {
         final Tender newTender = new Tender();
         newTender.setPrice(formTender.getPrice());
         newTender.setTitle(formTender.getTitle());
         newTender.setCategory(formTender.getCategory());
         newTender.setEndDate(formTender.getEndDate());
-        newTender.setOwner(owner);
+        newTender.setOwner(user);
         newTender.setActive(true);
         newTender.setStartDate(new Date());
-        tenderDao.add(newTender);
+        return tenderDao.add(newTender);
     }
 
     public void updateTender(final int tenderId, final FormTender formTender) {
-        final Tender updateTender = getTender(tenderId);
+        final Tender updateTender = this.getTenderById(tenderId)
+                .orElseThrow(() -> new IllegalArgumentException("No tender with id: " + tenderId));
         updateTender.setTitle(formTender.getTitle());
         updateTender.setCategory(formTender.getCategory());
         updateTender.setPrice(formTender.getPrice());

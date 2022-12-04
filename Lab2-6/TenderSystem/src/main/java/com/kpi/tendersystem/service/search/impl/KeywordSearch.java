@@ -2,14 +2,12 @@ package com.kpi.tendersystem.service.search.impl;
 
 import com.kpi.tendersystem.model.Tender;
 import com.kpi.tendersystem.service.search.TenderSearch;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Service
-@Scope("prototype")
 public class KeywordSearch implements TenderSearch {
     @Override
     public Collection<Tender> search(Collection<Tender> tenders, String query) {

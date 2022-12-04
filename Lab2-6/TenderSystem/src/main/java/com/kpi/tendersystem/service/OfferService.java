@@ -2,6 +2,8 @@ package com.kpi.tendersystem.service;
 
 import com.kpi.tendersystem.dao.OfferDao;
 import com.kpi.tendersystem.model.Offer;
+import com.kpi.tendersystem.model.Tender;
+import com.kpi.tendersystem.model.auth.User;
 import com.kpi.tendersystem.model.form.FormOffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,14 +11,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collection;
-import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class OfferService {
-
-    @Autowired
-    private UserService userService;
 
     @Autowired
     private TenderService tenderService;
@@ -24,34 +23,32 @@ public class OfferService {
     @Autowired
     private OfferDao offerDao;
 
-    public void addOffer(final int tenderId, final String username, final FormOffer formOffer) {
-        if (getByUsernameAndTenderId(username, tenderId) != null) {
-            throw new IllegalStateException("Offer for tender " + tenderId + " from user " + username + " already exists");
-        }
+    public int addOffer(final Tender tender, final User user, final FormOffer formOffer) {
         final Offer newOffer = new Offer();
-        try {
-            newOffer.setTender(tenderService.getTender(tenderId));
-        } catch (NoSuchElementException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tender " + tenderId + " doesn't exist");
-        }
-        newOffer.setUser(userService.getByUsername(username));
+        newOffer.setTender(tender);
+        newOffer.setUser(user);
         newOffer.setDescription(formOffer.getDescription());
-        offerDao.add(newOffer);
+        return offerDao.add(newOffer);
     }
 
     public Collection<Offer> getByUsername(final String username) {
         return offerDao.getByUsername(username);
     }
 
-    public Offer getByUsernameAndTenderId(final String username, final int tenderId) {
+    public Optional<Offer> getByUsernameAndTenderId(final String username, final int tenderId) {
         return offerDao.getByUsernameAndTenderId(username, tenderId);
     }
 
     public Collection<Offer> getAllByTender(final String username, final int tenderId) {
-        if (!Objects.equals(tenderService.getTender(tenderId).getOwner().getUsername(), username)) {
+        final Tender tender = tenderService.getTenderById(tenderId)
+                .orElseThrow(() -> new IllegalArgumentException("No tender with id: " + tenderId));
+        if (!Objects.equals(tender.getOwner().getUsername(), username)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Resource is not allowed!");
         }
         return offerDao.getByTender(tenderId);
     }
 
+    public Optional<Offer> getById(int id) {
+        return offerDao.getById(id);
+    }
 }

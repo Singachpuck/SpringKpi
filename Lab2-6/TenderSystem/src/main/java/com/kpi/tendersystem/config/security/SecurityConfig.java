@@ -1,6 +1,8 @@
-package com.kpi.tendersystem.config;
+package com.kpi.tendersystem.config.security;
 
+import com.kpi.tendersystem.model.auth.Authorities;
 import com.kpi.tendersystem.model.auth.DaoUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -15,13 +17,28 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Autowired
+    private RestAuthenticationEntryPoint entryPoint;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authz) -> authz
-                        .anyRequest().authenticated()
-                )
-                .formLogin();
+                .authorizeHttpRequests()
+                .antMatchers("/v3/api-docs", "/v3/api-docs.yaml", "/swagger-ui/index.html")
+                .permitAll()
+                .and()
+                .authorizeHttpRequests()
+                .anyRequest()
+                .hasAuthority(Authorities.DEFAULT.getGrantedAuthority().getAuthority())
+                .and()
+                .formLogin()
+                .and()
+                .httpBasic()
+                .authenticationEntryPoint(entryPoint)
+                .and()
+                .csrf()
+                .disable();
+
         return http.build();
     }
 
@@ -32,11 +49,10 @@ public class SecurityConfig {
 
     @Bean
     @DependsOn("passwordEncoder")
-    public DaoAuthenticationProvider daoAuthenticationProvider(final PasswordEncoder passwordEncoder, final DaoUserDetailsService detailsService) {
+    public DaoAuthenticationProvider daoAuthenticationProvider(PasswordEncoder passwordEncoder, DaoUserDetailsService detailsService) {
         final DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder);
         provider.setUserDetailsService(detailsService);
         return provider;
     }
-
 }
