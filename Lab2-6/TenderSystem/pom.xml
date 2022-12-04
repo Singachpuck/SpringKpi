@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.kpi</groupId>
 	<artifactId>TenderSystem</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>3.0.0</version>
 	<name>TenderSystem</name>
 	<description>TenderSystem</description>
 	<properties>
