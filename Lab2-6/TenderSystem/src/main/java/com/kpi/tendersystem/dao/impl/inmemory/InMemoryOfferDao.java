@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -16,12 +17,13 @@ public class InMemoryOfferDao implements OfferDao {
     private static final Collection<Offer> offers = InMemoryDb.loadOffers();
 
     @Override
-    public void add(final Offer offer) {
+    public int add(final Offer offer) {
         if (offer.getId() == null) {
             offer.setId(generateId());
         }
 
         offers.add(offer);
+        return offer.getId();
     }
 
     @Override
@@ -33,13 +35,12 @@ public class InMemoryOfferDao implements OfferDao {
     }
 
     @Override
-    public Offer getByUsernameAndTenderId(String username, int tenderId) {
+    public Optional<Offer> getByUsernameAndTenderId(String username, int tenderId) {
         return offers
                 .stream()
                 .filter(offer -> Objects.equals(offer.getUser().getUsername(), username)
                         && Objects.equals(offer.getTender().getId(), tenderId))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     @Override
@@ -56,5 +57,13 @@ public class InMemoryOfferDao implements OfferDao {
                 .map(Offer::getId)
                 .max(Comparator.comparingInt(i -> i))
                 .orElse(0) + 1;
+    }
+
+    @Override
+    public Optional<Offer> getById(int id) {
+        return offers
+                .stream()
+                .filter(offer -> offer.getId() == id)
+                .findFirst();
     }
 }

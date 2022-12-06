@@ -2,11 +2,11 @@ package com.kpi.tendersystem.dao;
 
 import com.kpi.tendersystem.model.auth.User;
 
-import java.util.Collection;
+import java.util.Optional;
 
 public interface UserDao {
 
-    Collection<User> getAll();
+    Optional<User> getByUsername(final String username);
 
-    User getByUsername(final String username);
+    Optional<User> getById(final int id);
 }

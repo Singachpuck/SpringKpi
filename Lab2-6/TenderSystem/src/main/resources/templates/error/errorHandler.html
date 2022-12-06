@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <th:block th:replace="fragments/fragments.html :: bootstrap-css" />
+    <link rel="stylesheet" href="/style/error/errorHandler.css">
+    <title th:text="'Error ' + ${exception.getStatus().value()}"></title>
+</head>
+<body>
+<th:block th:replace="fragments/fragments.html :: header(includeSearch=true)"></th:block>
+<main>
+    <section class="container">
+        <div class="error-wrapper mt-5">
+            <h1>Error occurred!</h1>
+            <p th:text="${exception.getReason()}"></p>
+        </div>
+    </section>
+</main>
+<th:block th:replace="fragments/fragments.html :: footer"></th:block>
+<th:block th:replace="fragments/fragments.html :: bootstrap-js"/>
+</body>
+</html>

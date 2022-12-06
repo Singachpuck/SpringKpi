@@ -8,11 +8,22 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryTenderDao implements TenderDao {
     private static final Collection<Tender> tenders = InMemoryDb.loadTenders();
+
+    @Override
+    public Collection<Tender> getAll(int offset, int limit) {
+        final int skipIndex = offset * limit;
+        return tenders
+                .stream()
+                .skip(skipIndex)
+                .limit(limit)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public Collection<Tender> getAll() {
@@ -20,20 +31,20 @@ public class InMemoryTenderDao implements TenderDao {
     }
 
     @Override
-    public Tender get(final int id) {
+    public Optional<Tender> getById(final int id) {
         return tenders
                 .stream()
                 .filter(tender -> tender.getId() == id)
-                .findFirst()
-                .orElseThrow(NoSuchElementException::new);
+                .findFirst();
     }
 
     @Override
-    public void add(Tender tender) {
+    public Tender add(Tender tender) {
         if (tender.getId() == null) {
             tender.setId(generateId());
         }
         tenders.add(tender);
+        return tender;
     }
 
     @Override

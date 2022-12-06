@@ -1,13 +1,19 @@
 package com.kpi.tendersystem.controller;
 
+import com.kpi.tendersystem.model.Offer;
+import com.kpi.tendersystem.model.Tender;
+import com.kpi.tendersystem.model.auth.User;
 import com.kpi.tendersystem.model.form.FormOffer;
 import com.kpi.tendersystem.model.form.FormTender;
 import com.kpi.tendersystem.service.OfferService;
 import com.kpi.tendersystem.service.TenderService;
+import com.kpi.tendersystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
@@ -23,15 +29,14 @@ public class TenderController {
 
     public static final String ONE = "/{tenderId}";
 
+    @Autowired
     private TenderService tenderService;
 
     @Autowired
     private OfferService offerService;
 
     @Autowired
-    public void setTenderService(TenderService tenderService) {
-        this.tenderService = tenderService;
-    }
+    private UserService userService;
 
     @GetMapping
     public String showAll(@RequestParam(required = false) String search, final Model model) {
@@ -48,16 +53,27 @@ public class TenderController {
 
     @PostMapping(NEW)
     public String store(Principal principal, @ModelAttribute FormTender formTender) {
-        tenderService.addTender(principal.getName(), formTender);
-        return "redirect:/tenders";
+        final String username = principal.getName();
+        final User user = userService
+                .getByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Can not resolve user"));
+
+        final Tender tender = tenderService.addTender(user, formTender);
+
+        return "redirect:/tenders/" + tender.getId();
     }
 
     @GetMapping(ONE)
     public String show(@PathVariable int tenderId, Model model, Principal principal) {
-        model.addAttribute("tender", tenderService.getTender(tenderId));
+        final Optional<Tender> tender = tenderService.getTenderById(tenderId);
+        if (tender.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Page not found");
+        }
+        final Offer offer = offerService.getByUsernameAndTenderId(principal.getName(), tenderId).orElse(null);
+        model.addAttribute("tender", tender.get());
         model.addAttribute("formOffer", new FormOffer());
         model.addAttribute("patchTender", new FormTender());
-        model.addAttribute("oldOffer", offerService.getByUsernameAndTenderId(principal.getName(), tenderId));
+        model.addAttribute("oldOffer", offer);
         model.addAttribute("username", principal.getName());
         return "tender";
     }
@@ -72,31 +88,5 @@ public class TenderController {
     public String update(@PathVariable int tenderId, @ModelAttribute FormTender tender, HttpServletRequest request) {
         tenderService.updateTender(tenderId, tender);
         return "redirect:" + request.getRequestURI();
-    }
-
-    @Controller
-    @RequestMapping(OfferController.BASE)
-    static class OfferController {
-        public static final String BASE = TenderController.BASE + TenderController.ONE + "/offers";
-
-        @Autowired
-        private OfferService offerService;
-
-        @Autowired
-        private TenderService tenderService;
-
-        @PostMapping
-        public String store(@PathVariable int tenderId, Principal principal, @ModelAttribute FormOffer formOffer) {
-            // Save data from form
-            offerService.addOffer(tenderId, principal.getName(), formOffer);
-            return "redirect:/tenders/" + tenderId;
-        }
-
-        @GetMapping
-        public String show(@PathVariable int tenderId, Principal principal, Model model) {
-            model.addAttribute("tender", tenderService.getTender(tenderId));
-            model.addAttribute("offers", offerService.getAllByTender(principal.getName(), tenderId));
-            return "offers";
-        }
     }
 }

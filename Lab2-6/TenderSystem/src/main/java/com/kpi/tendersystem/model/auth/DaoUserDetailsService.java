@@ -16,7 +16,7 @@ public class DaoUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            return userService.getByUsername(username);
+            return userService.getByUsername(username).get();
         } catch (RuntimeException e) {
             throw new UsernameNotFoundException("User: " + username + " doesn't exist");
         }

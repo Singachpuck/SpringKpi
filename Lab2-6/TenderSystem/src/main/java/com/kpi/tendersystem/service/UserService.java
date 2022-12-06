@@ -5,13 +5,19 @@ import com.kpi.tendersystem.model.auth.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
     @Autowired
     private UserDao userDao;
 
-    public User getByUsername(final String username){
+    public Optional<User> getByUsername(final String username){
         return userDao.getByUsername(username);
+    }
+
+    public Optional<User> getById(final int userId) {
+        return userDao.getById(userId);
     }
 }
