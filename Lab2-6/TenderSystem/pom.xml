@@ -17,6 +17,11 @@
 		<java.version>17</java.version>
 		<openApi.version>1.6.13</openApi.version>
 	</properties>
+
+	<scm>
+		<connection>scm:git:https://github.com/Singachpuck/SpringKpi.git</connection>
+	</scm>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -64,7 +69,15 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<version>3.0.0-M6</version>
 				<configuration>
-					<tagNameFormat>Lab ${project.version}</tagNameFormat>
+					<tagNameFormat>Lab @{project.version}</tagNameFormat>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<version>2.0.0-M3</version>
+				<configuration>
+					<connectionType>connection</connectionType>
 				</configuration>
 			</plugin>
 		</plugins>
