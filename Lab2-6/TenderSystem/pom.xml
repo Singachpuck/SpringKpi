@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.kpi</groupId>
 	<artifactId>TenderSystem</artifactId>
-	<version>5.0.0-SNAPSHOT</version>
+	<version>4.0.0</version>
 	<name>TenderSystem</name>
 	<description>TenderSystem</description>
 	<properties>
@@ -19,7 +19,7 @@
 
 	<scm>
 		<connection>scm:git:https://github.com/Singachpuck/SpringKpi.git</connection>
-	  <tag>HEAD</tag>
+	  <tag>Lab4</tag>
   </scm>
 
 	<dependencies>
