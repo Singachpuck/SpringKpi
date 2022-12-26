@@ -1,4 +1,4 @@
-package com.kpi.tendersystem.model.auth;
+package com.kpi.tendersystem.service.auth;
 
 import com.kpi.tendersystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

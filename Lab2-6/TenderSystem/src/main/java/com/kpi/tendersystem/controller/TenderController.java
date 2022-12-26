@@ -58,9 +58,9 @@ public class TenderController {
                 .getByUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Can not resolve user"));
 
-        final Tender tender = tenderService.addTender(user, formTender);
+        final int tenderId = tenderService.addTender(user, formTender);
 
-        return "redirect:/tenders/" + tender.getId();
+        return "redirect:/tenders/" + tenderId;
     }
 
     @GetMapping(ONE)

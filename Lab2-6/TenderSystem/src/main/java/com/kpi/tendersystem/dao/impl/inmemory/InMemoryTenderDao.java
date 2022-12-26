@@ -1,7 +1,7 @@
 package com.kpi.tendersystem.dao.impl.inmemory;
 
 import com.kpi.tendersystem.dao.TenderDao;
-import com.kpi.tendersystem.dao.impl.database.InMemoryDb;
+import com.kpi.tendersystem.dao.impl.inmemory.database.InMemoryDb;
 import com.kpi.tendersystem.model.Tender;
 import org.springframework.stereotype.Repository;
 
@@ -39,12 +39,12 @@ public class InMemoryTenderDao implements TenderDao {
     }
 
     @Override
-    public Tender add(Tender tender) {
+    public int add(Tender tender) {
         if (tender.getId() == null) {
             tender.setId(generateId());
         }
         tenders.add(tender);
-        return tender;
+        return tender.getId();
     }
 
     @Override

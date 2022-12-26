@@ -66,12 +66,12 @@ public class TenderRestController {
                     .internalServerError()
                     .body(responseHelper.composeError(HttpStatus.INTERNAL_SERVER_ERROR, "Can not resolve user"));
         }
-        final Tender tender = tenderService.addTender(user.get(), formTender);
+        final int tenderId = tenderService.addTender(user.get(), formTender);
 
         final URI location = ServletUriComponentsBuilder
                 .fromCurrentRequestUri()
                 .path("/{id}")
-                .buildAndExpand(tender.getId())
+                .buildAndExpand(tenderId)
                 .toUri();
 
         return ResponseEntity
