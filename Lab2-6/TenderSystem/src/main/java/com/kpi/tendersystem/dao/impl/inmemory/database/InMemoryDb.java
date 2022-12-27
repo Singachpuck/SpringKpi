@@ -1,4 +1,4 @@
-package com.kpi.tendersystem.dao.impl.database;
+package com.kpi.tendersystem.dao.impl.inmemory.database;
 
 import com.kpi.tendersystem.model.Offer;
 import com.kpi.tendersystem.model.Tender;

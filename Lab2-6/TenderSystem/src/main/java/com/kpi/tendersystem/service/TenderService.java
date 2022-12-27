@@ -48,7 +48,7 @@ public class TenderService {
         return tenderDao.getById(id);
     }
 
-    public Tender addTender(final User user, final FormTender formTender) {
+    public int addTender(final User user, final FormTender formTender) {
         final Tender newTender = new Tender();
         newTender.setPrice(formTender.getPrice());
         newTender.setTitle(formTender.getTitle());

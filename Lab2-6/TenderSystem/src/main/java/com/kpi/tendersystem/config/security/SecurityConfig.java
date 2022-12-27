@@ -1,7 +1,7 @@
 package com.kpi.tendersystem.config.security;
 
 import com.kpi.tendersystem.model.auth.Authorities;
-import com.kpi.tendersystem.model.auth.DaoUserDetailsService;
+import com.kpi.tendersystem.service.auth.DaoUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

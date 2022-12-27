@@ -1,7 +1,7 @@
 package com.kpi.tendersystem.dao.impl.inmemory;
 
 import com.kpi.tendersystem.dao.UserDao;
-import com.kpi.tendersystem.dao.impl.database.InMemoryDb;
+import com.kpi.tendersystem.dao.impl.inmemory.database.InMemoryDb;
 import com.kpi.tendersystem.model.auth.User;
 import org.springframework.stereotype.Repository;
 
