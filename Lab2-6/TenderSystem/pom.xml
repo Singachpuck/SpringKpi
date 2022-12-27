@@ -79,7 +79,7 @@
 				<version>3.0.0-M6</version>
 				<configuration>
 					<tagNameFormat>Lab @{project.version}</tagNameFormat>
-					<arguments>-Dmaven.deploy.skip=true</arguments>
+					<arguments>-Dmaven.deploy.skip=true, -Ddb.password=databaseforcourse</arguments>
 				</configuration>
 			</plugin>
 			<plugin>
