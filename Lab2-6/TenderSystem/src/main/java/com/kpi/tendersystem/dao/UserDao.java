@@ -1,6 +1,6 @@
 package com.kpi.tendersystem.dao;
 
-import com.kpi.tendersystem.model.auth.User;
+import com.kpi.tendersystem.model.User;
 
 import java.util.Optional;
 

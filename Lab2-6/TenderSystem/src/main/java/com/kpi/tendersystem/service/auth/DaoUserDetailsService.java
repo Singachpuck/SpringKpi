@@ -1,5 +1,6 @@
 package com.kpi.tendersystem.service.auth;
 
+import com.kpi.tendersystem.model.auth.UserPrincipal;
 import com.kpi.tendersystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +17,7 @@ public class DaoUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
-            return userService.getByUsername(username).get();
+            return new UserPrincipal(userService.getByUsername(username).get());
         } catch (RuntimeException e) {
             throw new UsernameNotFoundException("User: " + username + " doesn't exist");
         }

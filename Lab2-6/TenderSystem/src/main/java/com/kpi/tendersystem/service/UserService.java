@@ -1,7 +1,7 @@
 package com.kpi.tendersystem.service;
 
 import com.kpi.tendersystem.dao.UserDao;
-import com.kpi.tendersystem.model.auth.User;
+import com.kpi.tendersystem.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -2,7 +2,7 @@ package com.kpi.tendersystem.controller;
 
 import com.kpi.tendersystem.model.Offer;
 import com.kpi.tendersystem.model.Tender;
-import com.kpi.tendersystem.model.auth.User;
+import com.kpi.tendersystem.model.User;
 import com.kpi.tendersystem.model.form.FormOffer;
 import com.kpi.tendersystem.model.form.FormTender;
 import com.kpi.tendersystem.service.OfferService;

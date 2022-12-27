@@ -1,6 +1,6 @@
 package com.kpi.tendersystem.controller;
 
-import com.kpi.tendersystem.model.auth.User;
+import com.kpi.tendersystem.model.User;
 import com.kpi.tendersystem.service.OfferService;
 import com.kpi.tendersystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

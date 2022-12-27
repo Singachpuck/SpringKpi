@@ -1,12 +1,14 @@
 package com.kpi.tendersystem.model.auth;
 
+import com.kpi.tendersystem.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Collections;
 
-public class User implements UserDetails, Serializable {
+public class UserPrincipal implements UserDetails, Serializable {
     private final int id;
     private final String username;
 
@@ -22,14 +24,14 @@ public class User implements UserDetails, Serializable {
 
     private final boolean enabled;
 
-    public User(int id,
-                String username,
-                String password,
-                Collection<? extends GrantedAuthority> authorities,
-                boolean accountNonExpired,
-                boolean accountNonLocked,
-                boolean credentialsNonExpired,
-                boolean enabled) {
+    public UserPrincipal(int id,
+                         String username,
+                         String password,
+                         Collection<? extends GrantedAuthority> authorities,
+                         boolean accountNonExpired,
+                         boolean accountNonLocked,
+                         boolean credentialsNonExpired,
+                         boolean enabled) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -38,6 +40,17 @@ public class User implements UserDetails, Serializable {
         this.accountNonLocked = accountNonLocked;
         this.credentialsNonExpired = credentialsNonExpired;
         this.enabled = enabled;
+    }
+
+    public UserPrincipal(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.authorities = Collections.singletonList(Authorities.DEFAULT.getGrantedAuthority());
+        this.accountNonExpired = true;
+        this.accountNonLocked = true;
+        this.credentialsNonExpired = true;
+        this.enabled = true;
     }
 
     public int getId() {
