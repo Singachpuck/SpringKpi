@@ -78,8 +78,8 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<version>3.0.0-M6</version>
 				<configuration>
-					<tagNameFormat>Lab @{project.version}</tagNameFormat>
-					<arguments>-Dmaven.deploy.skip=true, -Ddb.password=databaseforcourse</arguments>
+					<tagNameFormat>Lab@{project.version}</tagNameFormat>
+					<arguments>-Dmaven.deploy.skip=true</arguments>
 				</configuration>
 			</plugin>
 			<plugin>
