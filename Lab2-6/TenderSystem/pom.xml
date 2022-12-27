@@ -81,6 +81,19 @@
 					<tagNameFormat>Lab @{project.version}</tagNameFormat>
 					<arguments>-Dmaven.deploy.skip=true</arguments>
 				</configuration>
+				<executions>
+					<execution>
+						<id>db-config</id>
+						<goals>
+							<goal>prepare</goal>
+						</goals>
+						<configuration>
+							<environmentVariables>
+								<DB_PASSWORD>${db.password}</DB_PASSWORD>
+							</environmentVariables>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
