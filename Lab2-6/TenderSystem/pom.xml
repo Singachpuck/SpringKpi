@@ -20,7 +20,7 @@
 	<scm>
 		<connection>scm:git:https://github.com/Singachpuck/SpringKpi.git</connection>
 
-	  <tag>release</tag>
+	  <tag>release_t</tag>
   </scm>
 
 	<dependencies>
