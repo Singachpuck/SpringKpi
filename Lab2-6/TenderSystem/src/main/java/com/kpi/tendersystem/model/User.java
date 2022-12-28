@@ -3,8 +3,10 @@ package com.kpi.tendersystem.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "u")
 public class User {
 
     @Id
