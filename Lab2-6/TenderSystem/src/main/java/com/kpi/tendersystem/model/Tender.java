@@ -1,16 +1,23 @@
 package com.kpi.tendersystem.model;
 
-import com.kpi.tendersystem.model.auth.User;
 import com.kpi.tendersystem.model.form.FormTender;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
 public class Tender extends FormTender implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
+    @Column(nullable = false)
     private Date startDate;
 
     public Integer getId() {

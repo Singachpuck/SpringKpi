@@ -2,7 +2,7 @@ package com.kpi.tendersystem.service;
 
 import com.kpi.tendersystem.dao.TenderDao;
 import com.kpi.tendersystem.model.Tender;
-import com.kpi.tendersystem.model.auth.User;
+import com.kpi.tendersystem.model.User;
 import com.kpi.tendersystem.model.form.FormTender;
 import com.kpi.tendersystem.service.search.TenderSearch;
 import org.springframework.beans.factory.annotation.Autowired;

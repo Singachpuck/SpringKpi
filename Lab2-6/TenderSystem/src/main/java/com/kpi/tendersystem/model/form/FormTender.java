@@ -2,18 +2,28 @@ package com.kpi.tendersystem.model.form;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.MappedSuperclass;
 import java.util.Date;
 
+@MappedSuperclass
 public class FormTender {
 
+    @Column(nullable = false)
     private String title;
 
+    @Enumerated(EnumType.STRING)
     private Category category = Category.OTHER;
 
+    @Column(nullable = false)
     private boolean isActive = true;
 
+    @Column(nullable = false)
     private double price = 0.0D;
 
+    @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date endDate;
 

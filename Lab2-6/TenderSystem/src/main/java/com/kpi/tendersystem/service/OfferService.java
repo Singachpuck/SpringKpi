@@ -3,7 +3,7 @@ package com.kpi.tendersystem.service;
 import com.kpi.tendersystem.dao.OfferDao;
 import com.kpi.tendersystem.model.Offer;
 import com.kpi.tendersystem.model.Tender;
-import com.kpi.tendersystem.model.auth.User;
+import com.kpi.tendersystem.model.User;
 import com.kpi.tendersystem.model.form.FormOffer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

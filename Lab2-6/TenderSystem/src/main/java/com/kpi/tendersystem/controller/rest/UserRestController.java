@@ -1,6 +1,6 @@
 package com.kpi.tendersystem.controller.rest;
 
-import com.kpi.tendersystem.model.auth.User;
+import com.kpi.tendersystem.model.User;
 import com.kpi.tendersystem.service.ResponseHelper;
 import com.kpi.tendersystem.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
