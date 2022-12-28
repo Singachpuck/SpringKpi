@@ -97,6 +97,8 @@
 				<version>2.22.2</version>
 				<configuration>
 					<environmentVariables>
+						<DB_URL>jdbc:postgresql://dpg-celogjcgqg4ekma2thd0-a.frankfurt-postgres.render.com:5432/tender_system</DB_URL>
+						<DB_USERNAME>user</DB_USERNAME>
 						<!--suppress UnresolvedMavenProperty -->
 						<DB_PASSWORD>${db.password}</DB_PASSWORD>
 					</environmentVariables>
