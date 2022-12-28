@@ -78,7 +78,7 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<version>3.0.0-M6</version>
 				<configuration>
-					<tagNameFormat>Lab @{project.version}</tagNameFormat>
+					<tagNameFormat>Lab@{project.version}</tagNameFormat>
 					<!--suppress UnresolvedMavenProperty -->
 					<arguments>-Dmaven.deploy.skip=true -Ddb.password=${db.password}</arguments>
 				</configuration>
