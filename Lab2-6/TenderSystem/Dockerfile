@@ -11,4 +11,4 @@ RUN mvn clean package -DskipTests
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "target/TenderSystem-7.0.0-SNAPSHOT.jar", "--spring.config.location=src/main/resources/application.properties"]
+CMD ["java", "-jar", "target/TenderSystem-7.0.0-SNAPSHOT.jar", "--spring.config.location=src/main/resources/application.properties"]
