@@ -81,6 +81,8 @@
 					<tagNameFormat>Lab@{project.version}</tagNameFormat>
 					<!--suppress UnresolvedMavenProperty -->
 					<arguments>-Dmaven.deploy.skip=true -Ddb.password=${db.password}</arguments>
+					<updateBranchVersions>true</updateBranchVersions>
+					<updateWorkingCopyVersions>false</updateWorkingCopyVersions>
 				</configuration>
 			</plugin>
 			<plugin>
